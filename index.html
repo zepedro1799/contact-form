@@ -76,5 +76,21 @@
         })
         .catch(error => console.error("Fetch Error:", error));
     });
+    function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.openById("1nXaZQqrnNvpCVTAtVqgQrGEXhmVOAdtMGJw3KaN1jxQ").getSheetByName("Leads Data");
+    var data = JSON.parse(e.postData.contents);
+
+    if (!data.name || !data.email || !data.company) {
+      return ContentService.createTextOutput("Missing fields").setMimeType(ContentService.MimeType.TEXT);
+    }
+
+    sheet.appendRow([data.name, data.email, data.company, new Date()]);
+
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+  } catch (error) {
+    return ContentService.createTextOutput("Error: " + error.message).setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
     </script>
-    
