@@ -76,47 +76,27 @@
         })
         .catch(error => console.error("Fetch Error:", error));
     });
-    function doPost(e) {
-  try {
-    var sheet = SpreadsheetApp.openById("1nXaZQqrnNvpCVTAtVqgQrGEXhmVOAdtMGJw3KaN1jxQ").getSheetByName("Leads Data");
-    var data = JSON.parse(e.postData.contents);
+  
+    .catch(error => console.error("Fetch Error:", error));
+});
+</script>
 
-    if (!data.name || !data.email || !data.company) {
-      return ContentService.createTextOutput("Missing fields").setMimeType(ContentService.MimeType.TEXT);
-    }
-
-    sheet.appendRow([data.name, data.email, data.company, new Date()]);
-
-    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
-  } catch (error) {
-    return ContentService.createTextOutput("Error: " + error.message).setMimeType(ContentService.MimeType.TEXT);
-  }
-}
-
-    </script>
 <script>
 document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    let formData = {
-        name: document.querySelector("[name='name']").value,
-        email: document.querySelector("[name='email']").value,
-        company: document.querySelector("[name='company']").value
-    };
+    let formData = new FormData();
+    formData.append("entry.123456789", document.querySelector("[name='name']").value);
+    formData.append("entry.987654321", document.querySelector("[name='email']").value);
+    formData.append("entry.567891234", document.querySelector("[name='company']").value);
 
-    fetch("https://script.google.com/macros/s/AKfycbw6YZIlgtZvmctOAhljfqITVrC8-zy9OzLvXYB4RNtpkEgk-fWEcPxezz79_qr9iwQGnw/exec", {  // Replace with your new Web App URL
+    fetch("https://docs.google.com/forms/d/e/1W7FYVsnF7PDAqLA_SF5X00kZfAT2d/formResponse", {
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(response => response.text())  // Convert response to text
-    .then(data => {
-        if (data.includes("Success")) {  // Check if response contains "Success"
-            window.location.href = "https://your-redirect-link.com"; // Change to your thank-you page
-        } else {
-            alert("Error submitting form: " + data);
-        }
-    })
-    .catch(error => console.error("Fetch Error:", error));
+        body: formData,
+        mode: "no-cors"
+    }).then(() => {
+        window.location.href = "https://your-redirect-link.com"; // Change to your thank-you page
+    }).catch(error => console.error("Fetch Error:", error));
 });
 </script>
+
