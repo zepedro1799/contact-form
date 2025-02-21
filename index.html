@@ -90,7 +90,7 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     formData.append("entry.987654321", document.querySelector("[name='email']").value);
     formData.append("entry.567891234", document.querySelector("[name='company']").value);
 
-    fetch("https://docs.google.com/forms/d/e/1W7FYVsnF7PDAqLA_SF5X00kZfAT2d/formResponse", {
+    fetch("https://docs.google.com/forms/d/e/1W7FYVsnF7PDAqLA_SF5X00kZfAT2d-fl2paHlQKRVJA/formResponse", {
         method: "POST",
         body: formData,
         mode: "no-cors"
