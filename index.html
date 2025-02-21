@@ -84,19 +84,25 @@
 <script>
 document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault();
+    console.log("Form submitted!"); // ✅ Check if this appears in the Console
 
     let formData = new FormData();
     formData.append("entry.420788415", document.querySelector("[name='name']").value);
     formData.append("entry.553274032", document.querySelector("[name='email']").value);
     formData.append("entry.895210594", document.querySelector("[name='company']").value);
 
+    console.log("Form data ready:", formData); // ✅ Check if form data appears
+
     fetch("https://docs.google.com/forms/d/e/1W7FYVsnF7PDAqLA_SF5X00kZfAT2d-fl2paHlQKRVJA/formResponse", {
         method: "POST",
         body: formData,
         mode: "no-cors"
     }).then(() => {
-        window.location.href = "https://speed-platform-2671.my.salesforce.com/sfc/p/KB000000J59H/a/KB000000PKzO/Cr2VrgMpS2oQNLdKuatP2lyFB2MBI6fShjx1DSkPtHo"; // Change to your thank-you page
+        console.log("Fetch request sent!"); // ✅ Check if fetch request runs
+        alert("Form submitted successfully!");
+        window.location.href = "https://speed-platform-2671.my.salesforce.com/sfc/p/KB000000J59H/a/KB000000PKzO/Cr2VrgMpS2oQNLdKuatP2lyFB2MBI6fShjx1DSkPtHo"; // Change to thank-you page
     }).catch(error => console.error("Fetch Error:", error));
 });
 </script>
+
 
